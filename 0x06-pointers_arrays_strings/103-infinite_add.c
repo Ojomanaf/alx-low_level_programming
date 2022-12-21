@@ -1,65 +1,49 @@
-#include "mainn.h"
+#include "main.h"
 
 /**
- * infinite_add - add 2 integers.
- * @n1: integer
- * @n2: integer
- * @r: buffer
- * size_r: size of r
- * Return: char
+ * rot13 - function that encodes a string using rot13
+ *
+ * ONE if, TWO loops only
+ * @str: input
+ *
+ * Return: decrypted string
  */
 
-int _atoi(char *s)
+char *rot13(char *str)
 {
-	int sign = 1, resp = 0, firstNum;
+	int indx1 = 0, indx2;
+	char alphabet[52] = {'A', 'B', 'C', 'D', 'E', 'F',
+			     'G', 'H', 'I', 'J', 'K', 'L',
+			     'M', 'N', 'O', 'P', 'Q', 'R',
+			     'S', 'T', 'U', 'V', 'W', 'X',
+			     'Y', 'Z', 'a', 'b', 'c', 'd',
+			     'e', 'f', 'g', 'h', 'i', 'j',
+			     'k', 'l', 'm', 'n', 'o', 'p',
+			     'q', 'r', 's', 't', 'u', 'v',
+			     'w', 'x', 'y', 'z'};
+	char rot13key[52] = {'N', 'O', 'P', 'Q', 'R', 'S',
+			     'T', 'U', 'V', 'W', 'X', 'Y',
+			     'Z', 'A', 'B', 'C', 'D', 'E',
+			     'F', 'G', 'H', 'I', 'J', 'K',
+			     'L', 'M', 'n', 'o', 'p', 'q',
+			     'r', 's', 't', 'u', 'v', 'w',
+			     'x', 'y', 'z', 'a', 'b', 'c',
+			     'd', 'e', 'f', 'g', 'h', 'i',
+			     'j', 'k', 'l', 'm'};
 
-	for (firstNum = 0; !(s[firstNum] >= 48 && s[firstNum] <= 57); firstNum++)
+	while (str[indx1])
 	{
-		if (s[firstNum] == '-')
+		for (indx2 = 0; indx2 < 52; indx2++)
 		{
-			sign *= -1;
+			if (str[indx1] == alphabet[indx2])
+			{
+				str[indx1] = rot13key[indx2];
+				break;
+			}
 		}
+
+		indx1++;
 	}
 
-	for (int i = firstNum; s[i] >= 48 && s[i] <= 57; i++)
-	{
-		resp *= 10;
-		resp += (s[i] - 48);
-	}
-
-	return (sign * resp);
-}
-
-void int_to_string(int n)
-{
-int divisor = 1, i, resp;
-
-
-for (i = 0; n / divisor > 9; i++)
-{
-	divisor *= 10;
-}
-
-char str[i];
-
-for (int cmpt = 0; divisor >= 10; divisor /= 10, cmpt++)
-{
-	resp = n / divisor;
-	str[cmpt] = '0' + resp;
-	n = n - resp * divisor;
-}
-str[i] = ('0' + n);
-
-}
-
-
-char *infinite_add(char *n1, char *n2, char *r, int size_r)
-{
-    int sum, a, b;
-    a = _atoi(n1);
-    b = _atoi(n2);
-
-    sum = a + b;
-
-
+	return (str);
 }
